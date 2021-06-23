@@ -11,7 +11,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";
@@ -23,6 +23,14 @@ namespace StoreFrontLab.UI.MVC.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Products()
+        {
+            ViewBag.Message = "Your products page.";
 
             return View();
         }
