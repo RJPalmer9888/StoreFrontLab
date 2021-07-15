@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StoreFrontModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Archetypes">
+          <Key>
+            <PropertyRef Name="ArchetypeID" />
+          </Key>
+          <Property Name="ArchetypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Archetype" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Elements">
+          <Key>
+            <PropertyRef Name="ElementID" />
+          </Key>
+          <Property Name="ElementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Element" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="ReportsTo" Type="int" />
+        </EntityType>
+        <EntityType Name="InStockStatus">
+          <Key>
+            <PropertyRef Name="InStockID" />
+          </Key>
+          <Property Name="InStockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Manufacturers">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Manufacturer" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rarities">
+          <Key>
+            <PropertyRef Name="RarityID" />
+          </Key>
+          <Property Name="RarityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rarity" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Weapons">
+          <Key>
+            <PropertyRef Name="WeaponID" />
+          </Key>
+          <Property Name="WeaponID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WeaponName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="ArchetypeID" Type="int" Nullable="false" />
+          <Property Name="ElementID" Type="int" Nullable="false" />
+          <Property Name="RarityID" Type="int" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" />
+          <Property Name="Image" Type="varchar(max)" />
+          <Property Name="InStockID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Employees_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weapons_Archetypes">
+          <End Role="Archetypes" Type="Self.Archetypes" Multiplicity="1" />
+          <End Role="Weapons" Type="Self.Weapons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Archetypes">
+              <PropertyRef Name="ArchetypeID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="ArchetypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weapons_Elements">
+          <End Role="Elements" Type="Self.Elements" Multiplicity="1" />
+          <End Role="Weapons" Type="Self.Weapons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Elements">
+              <PropertyRef Name="ElementID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="ElementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weapons_InStockStatus">
+          <End Role="InStockStatus" Type="Self.InStockStatus" Multiplicity="1" />
+          <End Role="Weapons" Type="Self.Weapons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InStockStatus">
+              <PropertyRef Name="InStockID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="InStockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weapons_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
+          <End Role="Weapons" Type="Self.Weapons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weapons_Rarities">
+          <End Role="Rarities" Type="Self.Rarities" Multiplicity="1" />
+          <End Role="Weapons" Type="Self.Weapons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rarities">
+              <PropertyRef Name="RarityID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="RarityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreFrontModelStoreContainer">
+          <EntitySet Name="Archetypes" EntityType="Self.Archetypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Elements" EntityType="Self.Elements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InStockStatus" EntityType="Self.InStockStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rarities" EntityType="Self.Rarities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Weapons" EntityType="Self.Weapons" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weapons_Archetypes" Association="Self.FK_Weapons_Archetypes">
+            <End Role="Archetypes" EntitySet="Archetypes" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weapons_Elements" Association="Self.FK_Weapons_Elements">
+            <End Role="Elements" EntitySet="Elements" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weapons_InStockStatus" Association="Self.FK_Weapons_InStockStatus">
+            <End Role="InStockStatus" EntitySet="InStockStatus" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weapons_Manufacturers" Association="Self.FK_Weapons_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weapons_Rarities" Association="Self.FK_Weapons_Rarities">
+            <End Role="Rarities" EntitySet="Rarities" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StoreFrontModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Archetype">
+          <Key>
+            <PropertyRef Name="ArchetypeID" />
+          </Key>
+          <Property Name="ArchetypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Archetype1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Weapons" Relationship="Self.FK_Weapons_Archetypes" FromRole="Archetypes" ToRole="Weapons" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Departments" FromRole="Departments" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Element">
+          <Key>
+            <PropertyRef Name="ElementID" />
+          </Key>
+          <Property Name="ElementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Element1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Weapons" Relationship="Self.FK_Weapons_Elements" FromRole="Elements" ToRole="Weapons" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="ReportsTo" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Employees_Departments" FromRole="Employees" ToRole="Departments" />
+        </EntityType>
+        <EntityType Name="InStockStatus">
+          <Key>
+            <PropertyRef Name="InStockID" />
+          </Key>
+          <Property Name="InStockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Weapons" Relationship="Self.FK_Weapons_InStockStatus" FromRole="InStockStatus" ToRole="Weapons" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manufacturer1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Weapons" Relationship="Self.FK_Weapons_Manufacturers" FromRole="Manufacturers" ToRole="Weapons" />
+        </EntityType>
+        <EntityType Name="Rarity">
+          <Key>
+            <PropertyRef Name="RarityID" />
+          </Key>
+          <Property Name="RarityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rarity1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Weapons" Relationship="Self.FK_Weapons_Rarities" FromRole="Rarities" ToRole="Weapons" />
+        </EntityType>
+        <EntityType Name="Weapon">
+          <Key>
+            <PropertyRef Name="WeaponID" />
+          </Key>
+          <Property Name="WeaponID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WeaponName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ArchetypeID" Type="Int32" Nullable="false" />
+          <Property Name="ElementID" Type="Int32" Nullable="false" />
+          <Property Name="RarityID" Type="Int32" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InStockID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Archetype" Relationship="Self.FK_Weapons_Archetypes" FromRole="Weapons" ToRole="Archetypes" />
+          <NavigationProperty Name="Element" Relationship="Self.FK_Weapons_Elements" FromRole="Weapons" ToRole="Elements" />
+          <NavigationProperty Name="InStockStatus" Relationship="Self.FK_Weapons_InStockStatus" FromRole="Weapons" ToRole="InStockStatus" />
+          <NavigationProperty Name="Manufacturer" Relationship="Self.FK_Weapons_Manufacturers" FromRole="Weapons" ToRole="Manufacturers" />
+          <NavigationProperty Name="Rarity" Relationship="Self.FK_Weapons_Rarities" FromRole="Weapons" ToRole="Rarities" />
+        </EntityType>
+        <Association Name="FK_Weapons_Archetypes">
+          <End Role="Archetypes" Type="Self.Archetype" Multiplicity="1" />
+          <End Role="Weapons" Type="Self.Weapon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Archetypes">
+              <PropertyRef Name="ArchetypeID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="ArchetypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Departments">
+          <End Role="Departments" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weapons_Elements">
+          <End Role="Elements" Type="Self.Element" Multiplicity="1" />
+          <End Role="Weapons" Type="Self.Weapon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Elements">
+              <PropertyRef Name="ElementID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="ElementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weapons_InStockStatus">
+          <End Role="InStockStatus" Type="StoreFrontModel.InStockStatus" Multiplicity="1" />
+          <End Role="Weapons" Type="Self.Weapon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InStockStatus">
+              <PropertyRef Name="InStockID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="InStockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weapons_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturer" Multiplicity="0..1" />
+          <End Role="Weapons" Type="Self.Weapon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weapons_Rarities">
+          <End Role="Rarities" Type="Self.Rarity" Multiplicity="1" />
+          <End Role="Weapons" Type="Self.Weapon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rarities">
+              <PropertyRef Name="RarityID" />
+            </Principal>
+            <Dependent Role="Weapons">
+              <PropertyRef Name="RarityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreFrontEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Archetypes" EntityType="Self.Archetype" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Elements" EntityType="Self.Element" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="InStockStatus1" EntityType="StoreFrontModel.InStockStatus" />
+          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturer" />
+          <EntitySet Name="Rarities" EntityType="Self.Rarity" />
+          <EntitySet Name="Weapons" EntityType="Self.Weapon" />
+          <AssociationSet Name="FK_Weapons_Archetypes" Association="Self.FK_Weapons_Archetypes">
+            <End Role="Archetypes" EntitySet="Archetypes" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weapons_Elements" Association="Self.FK_Weapons_Elements">
+            <End Role="Elements" EntitySet="Elements" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weapons_InStockStatus" Association="Self.FK_Weapons_InStockStatus">
+            <End Role="InStockStatus" EntitySet="InStockStatus1" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weapons_Manufacturers" Association="Self.FK_Weapons_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weapons_Rarities" Association="Self.FK_Weapons_Rarities">
+            <End Role="Rarities" EntitySet="Rarities" />
+            <End Role="Weapons" EntitySet="Weapons" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StoreFrontModelStoreContainer" CdmEntityContainer="StoreFrontEntities">
+          <EntitySetMapping Name="Archetypes">
+            <EntityTypeMapping TypeName="StoreFrontModel.Archetype">
+              <MappingFragment StoreEntitySet="Archetypes">
+                <ScalarProperty Name="ArchetypeID" ColumnName="ArchetypeID" />
+                <ScalarProperty Name="Archetype1" ColumnName="Archetype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="StoreFrontModel.Department">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Elements">
+            <EntityTypeMapping TypeName="StoreFrontModel.Element">
+              <MappingFragment StoreEntitySet="Elements">
+                <ScalarProperty Name="ElementID" ColumnName="ElementID" />
+                <ScalarProperty Name="Element1" ColumnName="Element" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="StoreFrontModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="ReportsTo" ColumnName="ReportsTo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InStockStatus1">
+            <EntityTypeMapping TypeName="StoreFrontModel.InStockStatus">
+              <MappingFragment StoreEntitySet="InStockStatus">
+                <ScalarProperty Name="InStockID" ColumnName="InStockID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manufacturers">
+            <EntityTypeMapping TypeName="StoreFrontModel.Manufacturer">
+              <MappingFragment StoreEntitySet="Manufacturers">
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Manufacturer1" ColumnName="Manufacturer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rarities">
+            <EntityTypeMapping TypeName="StoreFrontModel.Rarity">
+              <MappingFragment StoreEntitySet="Rarities">
+                <ScalarProperty Name="RarityID" ColumnName="RarityID" />
+                <ScalarProperty Name="Rarity1" ColumnName="Rarity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Weapons">
+            <EntityTypeMapping TypeName="StoreFrontModel.Weapon">
+              <MappingFragment StoreEntitySet="Weapons">
+                <ScalarProperty Name="WeaponID" ColumnName="WeaponID" />
+                <ScalarProperty Name="WeaponName" ColumnName="WeaponName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ArchetypeID" ColumnName="ArchetypeID" />
+                <ScalarProperty Name="ElementID" ColumnName="ElementID" />
+                <ScalarProperty Name="RarityID" ColumnName="RarityID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="InStockID" ColumnName="InStockID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
