@@ -88,28 +88,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StorefrontModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>StorefrontModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Weapon.cs">
       <DependentUpon>StorefrontModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
     <EntityDeploy Include="StorefrontModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>StorefrontModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="packages.config" />
     <None Include="StorefrontModel.edmx.diagram">
       <DependentUpon>StorefrontModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="StorefrontModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>StorefrontModel.Context.cs</LastGenOutput>
       <DependentUpon>StorefrontModel.edmx</DependentUpon>
+      <LastGenOutput>StorefrontModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="StorefrontModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -117,9 +121,5 @@
       <LastGenOutput>StorefrontModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

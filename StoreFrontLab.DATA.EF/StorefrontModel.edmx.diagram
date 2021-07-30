@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="730c6fd66f9b4da6a0231f79577e81c4" Name="Diagram1">
+      <Diagram DiagramId="714fca5aa7ea403fa170379941979e0f" Name="Diagram1">
         <EntityTypeShape EntityType="StoreFrontModel.Archetype" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Department" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Element" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
@@ -12,6 +12,7 @@
         <EntityTypeShape EntityType="StoreFrontModel.InStockStatus" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Manufacturer" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Rarity" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.sysdiagram" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Weapon" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="StoreFrontModel.FK_Weapons_Archetypes" ManuallyRouted="false" />
         <AssociationConnector Association="StoreFrontModel.FK_Employees_Departments" ManuallyRouted="false" />

@@ -57,6 +57,16 @@
           <Property Name="RarityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Rarity" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Weapons">
           <Key>
             <PropertyRef Name="WeaponID" />
@@ -151,6 +161,7 @@
           <EntitySet Name="InStockStatus" EntityType="Self.InStockStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rarities" EntityType="Self.Rarities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Weapons" EntityType="Self.Weapons" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
             <End Role="Departments" EntitySet="Departments" />
@@ -240,6 +251,16 @@
           <Property Name="RarityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Rarity1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Weapons" Relationship="Self.FK_Weapons_Rarities" FromRole="Rarities" ToRole="Weapons" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Weapon">
           <Key>
@@ -332,7 +353,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="StoreFrontEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StoreFrontEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Archetypes" EntityType="Self.Archetype" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Elements" EntityType="Self.Element" />
@@ -340,6 +361,7 @@
           <EntitySet Name="InStockStatus1" EntityType="StoreFrontModel.InStockStatus" />
           <EntitySet Name="Manufacturers" EntityType="Self.Manufacturer" />
           <EntitySet Name="Rarities" EntityType="Self.Rarity" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Weapons" EntityType="Self.Weapon" />
           <AssociationSet Name="FK_Weapons_Archetypes" Association="Self.FK_Weapons_Archetypes">
             <End Role="Archetypes" EntitySet="Archetypes" />
@@ -371,7 +393,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="StoreFrontModelStoreContainer" CdmEntityContainer="StoreFrontEntities">
+        <EntityContainerMapping StorageEntityContainer="StoreFrontModelStoreContainer" CdmEntityContainer="StoreFrontEntities1">
           <EntitySetMapping Name="Archetypes">
             <EntityTypeMapping TypeName="StoreFrontModel.Archetype">
               <MappingFragment StoreEntitySet="Archetypes">
@@ -428,6 +450,17 @@
               <MappingFragment StoreEntitySet="Rarities">
                 <ScalarProperty Name="RarityID" ColumnName="RarityID" />
                 <ScalarProperty Name="Rarity1" ColumnName="Rarity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="StoreFrontModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

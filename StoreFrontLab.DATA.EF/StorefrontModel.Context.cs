@@ -13,10 +13,10 @@ namespace StoreFrontLab.DATA.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StoreFrontEntities : DbContext
+    public partial class StoreFrontEntities1 : DbContext
     {
-        public StoreFrontEntities()
-            : base("name=StoreFrontEntities")
+        public StoreFrontEntities1()
+            : base("name=StoreFrontEntities1")
         {
         }
     
@@ -32,6 +32,7 @@ namespace StoreFrontLab.DATA.EF
         public virtual DbSet<InStockStatus> InStockStatus1 { get; set; }
         public virtual DbSet<Manufacturer> Manufacturers { get; set; }
         public virtual DbSet<Rarity> Rarities { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Weapon> Weapons { get; set; }
     }
 }

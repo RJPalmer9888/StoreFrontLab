@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreFrontLab.UI.MVC", "Sto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreFrontLab.DATA.EF", "StoreFrontLab.DATA.EF\StoreFrontLab.DATA.EF.csproj", "{12013381-B0EA-4B6A-8324-8A6D18E28665}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Archive", "Archive", "{D808BCE4-F450-417A-A06F-5F07CB3B2BC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

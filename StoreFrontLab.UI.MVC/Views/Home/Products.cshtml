@@ -1,10 +1,13 @@
-﻿<div class="page-heading products-heading header-text">
+﻿@model PagedList.IPagedList<StoreFrontLab.DATA.EF.Weapon>
+@using PagedList.Mvc;
+
+<div class="page-heading products-heading header-text">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="text-content">
                     <h4>new arrivals</h4>
-                    <h2>sixteen products</h2>
+                    <h2>armory products</h2>
                 </div>
             </div>
         </div>
@@ -17,137 +20,92 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="filters">
-                    <ul>
-                        <li class="active" data-filter="*">All Products</li>
+                    @using (Html.BeginForm("Products", "Home", FormMethod.Get))
+                    {
+                        <p>
+                            Find by Name: @Html.TextBox("SearchString", ViewBag.SearchString as string)
+                            <input type="submit" class="btn btn-primary" value="Search" />
+                        </p>
+                    }
+                    @*<li class="active" data-filter="*">All Products</li>
                         <li data-filter=".des">Featured</li>
                         <li data-filter=".dev">Flash Deals</li>
-                        <li data-filter=".gra">Last Minute</li>
-                    </ul>
+                        <li data-filter=".gra">Last Minute</li>*@
+
+
+                    @Html.PagedListPager(Model, page => Url.Action("Products", new { page, searchString = ViewBag.SearchString, element = ViewBag.elementID }))
+
+                    @*<p class="left-content">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>*@
+
+                    <a class="btn btn-info" href="?elementID=">All</a>
+                    <a class="btn btn-info" href="?elementID=1">Solar</a>
+                    <a class="btn btn-info" href="?elementID=2">Arc</a>
+                    <a class="btn btn-info" href="?elementID=3">Void</a>
+                    <a class="btn btn-info" href="?elementID=4">Stasis</a>
+                    <a class="btn btn-info" href="?elementID=5">Kinetic</a>
+
+
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="filters-content">
-                    <div class="row grid">
-                        <div class="col-lg-4 col-md-4 all des">
-                            <div class="product-item">
-                                <a href="#"><img src="~/images/product_01.jpg" alt=""></a>
-                                <div class="down-content">
-                                    <a href="#"><h4>Tittle goes here</h4></a>
-                                    <h6>$18.25</h6>
-                                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>Reviews (12)</span>
+                    @*@for (int i = 0; i < (ViewBag.pageSize)/3; i++)
+                        {
+
+                        }*@
+                    <a href="@Url.Action("Index", "Weapons")">List View</a>
+                    <section id="weaponGrid">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-lg-4 col-md-4 @(item.Element != null ? item.Element.Element1 : "unknown") weapon">
+                                    <div class="product-item">
+                                        <a href="@Url.Action("Details", "Weapons", new {id = item.WeaponID })" class="course-img">
+                                            <img src="~/imgstore/weapons/@item.Image" alt="@item.WeaponName" />
+                                        </a>
+                                        <div class="down-content">
+                                            <a href="@Url.Action("Details", "Weapons", new {id = item.WeaponID })"><h4>@item.WeaponName</h4></a>
+                                            <h6>@item.Archetype.Archetype1</h6>
+                                            <p>@item.Description</p>
+                                            <ul class="stars">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                            </ul>
+                                            <span>@item.InStockStatus.Status</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+
+                            }
                         </div>
-                        <div class="col-lg-4 col-md-4 all dev">
-                            <div class="product-item">
-                                <a href="#"><img src="~/images/product_02.jpg" alt=""></a>
-                                <div class="down-content">
-                                    <a href="#"><h4>Tittle goes here</h4></a>
-                                    <h6>$16.75</h6>
-                                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>Reviews (24)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 all gra">
-                            <div class="product-item">
-                                <a href="#"><img src="~/images/product_03.jpg" alt=""></a>
-                                <div class="down-content">
-                                    <a href="#"><h4>Tittle goes here</h4></a>
-                                    <h6>$32.50</h6>
-                                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>Reviews (36)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 all gra">
-                            <div class="product-item">
-                                <a href="#"><img src="~/images/product_04.jpg" alt=""></a>
-                                <div class="down-content">
-                                    <a href="#"><h4>Tittle goes here</h4></a>
-                                    <h6>$24.60</h6>
-                                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>Reviews (48)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 all dev">
-                            <div class="product-item">
-                                <a href="#"><img src="~/images/product_05.jpg" alt=""></a>
-                                <div class="down-content">
-                                    <a href="#"><h4>Tittle goes here</h4></a>
-                                    <h6>$18.75</h6>
-                                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>Reviews (60)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 all des">
-                            <div class="product-item">
-                                <a href="#"><img src="~/images/product_06.jpg" alt=""></a>
-                                <div class="down-content">
-                                    <a href="#"><h4>Tittle goes here</h4></a>
-                                    <h6>$12.50</h6>
-                                    <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                                    <ul class="stars">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>Reviews (72)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </section>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <ul class="pages">
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                </ul>
+                <div class="filters col-md-12">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("Products", new { page, searchString = ViewBag.SearchString, elementID = ViewBag.elementID }))
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+@section scripts {
+    @*<script>
+            //Go find the node with the #bookGrid, select all div.book inside of them. For each div, determine if it has the class with the genre name that is passed to the function. If it does, show the item (else). If it doesn't (if), hide the item.
+            function filter(element) {
+                $('#weaponGrid div.weapon').each(function () {
+                    if (!$(this).hasClass(element)) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                });
+            }
+        </script>*@
+}

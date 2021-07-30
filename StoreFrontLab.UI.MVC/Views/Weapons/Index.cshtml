@@ -1,0 +1,77 @@
+﻿@model IEnumerable<StoreFrontLab.DATA.EF.Weapon>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br /><br /><br /><br /><br />
+<h2>Index</h2>
+
+<a href="@Url.Action("Products", "Home")">Grid View</a>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WeaponName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Archetype.Archetype1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Element.Element1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InStockStatus.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Manufacturer.Manufacturer1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rarity.Rarity1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WeaponName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            <img src="~/imgstore/weapons/@item.Image" alt="@item.WeaponName" title="@item.WeaponName" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Archetype.Archetype1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Element.Element1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InStockStatus.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manufacturer.Manufacturer1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rarity.Rarity1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WeaponID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WeaponID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WeaponID })
+        </td>
+    </tr>
+}
+
+</table>

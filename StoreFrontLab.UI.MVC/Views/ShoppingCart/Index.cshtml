@@ -1,0 +1,87 @@
+﻿@model Dictionary<int, StoreFrontLab.UI.MVC.Models.CartItemViewModel>
+
+@{
+    ViewBag.Title = "Shopping Cart";
+
+    //add local variables for calculations that will be used later on in this view: running total variables
+    decimal? cartTotal = 0;
+    int totalCountOfItems = 0;
+}
+
+@*<h2>@ViewBag.Title</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<p class="text-right">
+    @Html.ActionLink("Back to Shopping", "Index", "Weapons", null, new { @class = "btn btn-info" })
+</p>
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+@if (Model.Count == 0)
+{
+    <p class="alert alert-warning">
+        @ViewBag.Message
+    </p>
+}
+else
+{
+
+    <table class="table">
+        <tr>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Name</th>
+            @*<th>Price</th>
+            <th>Total</th>*@
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @* When calling on an item in a dictionary, you have to specify KEY or VALUE*@
+                <td>
+                    <img src="~/imgstore/weapons/t_@item.Value.Product.Image" alt="@item.Value.Product.WeaponName" />
+                </td>
+                <td>
+                    @using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
+                    {
+                        @Html.Hidden("weaponID", item.Key)
+                        @Html.TextBox("qty", item.Value.Qty, new { @class = "form-control", @style = "max-width: 50px; display: inline" })
+                        <input type="submit" value="Update Quantity" class="btn btn-info" />
+                    }
+
+                    @{
+                        //calculate the running total number of items in the cart
+                        totalCountOfItems += item.Value.Qty;
+                    }
+                </td>
+                <td>@item.Value.Product.WeaponName</td>
+                @*<td>@string.Format($"{item.Value.Product.Price:c}")</td>
+                <td>
+                     <!--Calc the line total # update the running total variable for each row --!>
+                    @{
+                        decimal? lineTotal = item.Value.Product.Price * item.Value.Qty;
+                        cartTotal += lineTotal;
+                    }
+
+                    @string.Format($"{lineTotal:c}")
+                </td>*@
+                <td>
+                    @Html.ActionLink("Remove from Cart", "RemoveFromCart", new { id = item.Key })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <p class="alert alert-success text-center">
+        You have @totalCountOfItems item@(totalCountOfItems == 1 ? "" : "s") in your cart.
+        <br />
+        @*Your total before taxes and shipping is @string.Format($"{cartTotal:c}")*@
+    </p>
+}
+
+

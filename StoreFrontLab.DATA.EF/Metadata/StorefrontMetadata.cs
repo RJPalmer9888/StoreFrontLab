@@ -13,7 +13,7 @@ namespace StoreFrontLab.DATA.EF//.Metadata
         [Display(Name = "Archetype")]
         [Required(ErrorMessage = "*")]
         [StringLength(20, ErrorMessage = "* Value must be 20 characters or less.")]
-        public string Archetype { get; set; }
+        public string Archetype1 { get; set; }
     }
 
     [MetadataType(typeof(ArchetypeMetadata))]
@@ -39,7 +39,7 @@ namespace StoreFrontLab.DATA.EF//.Metadata
         [Display(Name = "Element")]
         [Required(ErrorMessage = "*")]
         [StringLength(20, ErrorMessage = "* Value must be 20 characters or less.")]
-        public string Element { get; set; }
+        public string Element1 { get; set; }
     }
 
     [MetadataType(typeof(ElementMetadata))]
@@ -91,7 +91,7 @@ namespace StoreFrontLab.DATA.EF//.Metadata
         [Display(Name = "Manufacturer")]
         [Required(ErrorMessage = "*")]
         [StringLength(50, ErrorMessage = "* Value must be 50 characters or less.")]
-        public string Manufacturer { get; set; }
+        public string Manufacturer1 { get; set; }
     }
 
     [MetadataType(typeof(ManufacturerMetadata))]
@@ -104,7 +104,7 @@ namespace StoreFrontLab.DATA.EF//.Metadata
         [Display(Name = "Rarity")]
         [Required(ErrorMessage = "*")]
         [StringLength(20, ErrorMessage = "* Value must be 20 characters or less.")]
-        public string Rarity { get; set; }
+        public string Rarity1 { get; set; }
     }
 
     [MetadataType(typeof(RarityMetadata))]
