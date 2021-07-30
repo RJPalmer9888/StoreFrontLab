@@ -10,7 +10,7 @@ body {
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale;  
   
 }
 p {
@@ -216,6 +216,7 @@ header {
     -moz-transition: all 0.3s ease-in-out 0s;
     -o-transition: all 0.3s ease-in-out 0s;
     transition: all 0.3s ease-in-out 0s;
+    
 }
 header .navbar {
 	padding: 17px 0px;
@@ -1061,4 +1062,8 @@ footer .inner-content p a {
 		right: 0;
 		bottom: 0;
 	}
+}
+.description {
+    font-style: italic;
+    font-size: 18px;
 }

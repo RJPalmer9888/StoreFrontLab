@@ -38,11 +38,15 @@
                     @*<p class="left-content">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>*@
 
                     <a class="btn btn-info" href="?elementID=">All</a>
-                    <a class="btn btn-info" href="?elementID=1">Solar</a>
+                    @*<a class="btn btn-info" href="?elementID=">Solar</a>
                     <a class="btn btn-info" href="?elementID=2">Arc</a>
                     <a class="btn btn-info" href="?elementID=3">Void</a>
                     <a class="btn btn-info" href="?elementID=4">Stasis</a>
-                    <a class="btn btn-info" href="?elementID=5">Kinetic</a>
+                    <a class="btn btn-info" href="?elementID=5">Kinetic</a>*@
+                    @foreach (StoreFrontLab.DATA.EF.Element element in ViewBag.Elements)
+                    {
+                    <a class="btn btn-info" href="?elementID=@element.ElementID">@element.Element1</a>
+                    }
 
 
                 </div>

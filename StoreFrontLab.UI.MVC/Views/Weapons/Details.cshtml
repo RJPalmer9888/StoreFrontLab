@@ -6,75 +6,64 @@
 
 <h2>Details</h2>
 
-<div>
+<div class="container">
     <h4>Weapon</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.WeaponName)
-        </dt>
+    <h1>
+        @Html.DisplayFor(model => model.WeaponName)
+    </h1>
+    <p class="description">@Html.DisplayFor(model => model.Description)</p>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Archetype.Archetype1)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.WeaponName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Archetype.Archetype1)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Element.Element1)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Element.Element1)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.InStockStatus.Status)
+                </dt>
 
-        <dd>
+                <dd>
+                    @Html.DisplayFor(model => model.InStockStatus.Status)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Manufacturer.Manufacturer1)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Manufacturer.Manufacturer1)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rarity.Rarity1)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Rarity.Rarity1)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="col-md-6">
             <img src="~/imgstore/weapons/@Model.Image" alt="@Model.WeaponName" title="@Model.WeaponName" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Archetype.Archetype1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Archetype.Archetype1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Element.Element1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Element.Element1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InStockStatus.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InStockStatus.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Manufacturer.Manufacturer1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Manufacturer.Manufacturer1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Rarity.Rarity1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rarity.Rarity1)
-        </dd>
-
-    </dl>
+        </div>
+    </div>
+    <hr />
 </div>
 <p>
     @using (Html.BeginForm("AddToCart", "Weapons", new { @weaponId = Model.WeaponID }, FormMethod.Post, new { @class = "text-center" }))
@@ -87,5 +76,5 @@
 </p>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.WeaponID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Products", "Home")
 </p>

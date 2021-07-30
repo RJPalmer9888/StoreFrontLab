@@ -130,7 +130,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
             int pageNumber = (page ?? 1);
             ViewBag.pageSize = pageSize;
             ViewBag.elementID = elementID;
-            ViewBag.Elements = db.Elements.Select(x => x.Element1).ToList();
+            ViewBag.Elements = db.Elements.ToList();
 
             var weapons = db.Weapons.Include(w => w.Archetype).Include(w => w.Element).Include(w => w.InStockStatus).Include(w => w.Manufacturer).Include(w => w.Rarity).OrderBy(w => w.WeaponName).ToList();
 
