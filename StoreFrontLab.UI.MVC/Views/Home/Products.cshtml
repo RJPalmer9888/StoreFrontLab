@@ -39,13 +39,13 @@
 
                     <a class="btn btn-info" href="?elementID=">All</a>
                     @*<a class="btn btn-info" href="?elementID=">Solar</a>
-                    <a class="btn btn-info" href="?elementID=2">Arc</a>
-                    <a class="btn btn-info" href="?elementID=3">Void</a>
-                    <a class="btn btn-info" href="?elementID=4">Stasis</a>
-                    <a class="btn btn-info" href="?elementID=5">Kinetic</a>*@
+                        <a class="btn btn-info" href="?elementID=2">Arc</a>
+                        <a class="btn btn-info" href="?elementID=3">Void</a>
+                        <a class="btn btn-info" href="?elementID=4">Stasis</a>
+                        <a class="btn btn-info" href="?elementID=5">Kinetic</a>*@
                     @foreach (StoreFrontLab.DATA.EF.Element element in ViewBag.Elements)
                     {
-                    <a class="btn btn-info" href="?elementID=@element.ElementID">@element.Element1</a>
+                        <a class="btn btn-info" href="?elementID=@element.ElementID">@element.Element1</a>
                     }
 
 
@@ -57,7 +57,12 @@
                         {
 
                         }*@
-                    <a href="@Url.Action("Index", "Weapons")">List View</a>
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <p>
+                            <a href="@Url.Action("Index", "Weapons")">Admin View</a>
+                        </p>
+                    }
                     <section id="weaponGrid">
                         <div class="row">
                             @foreach (var item in Model)

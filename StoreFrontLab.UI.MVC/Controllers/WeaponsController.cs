@@ -13,11 +13,13 @@ using StoreFrontLab.UI.MVC.Utilities;
 
 namespace StoreFrontLab.UI.MVC.Controllers
 {
+    
     public class WeaponsController : Controller
     {
         private StoreFrontEntities1 db = new StoreFrontEntities1();
 
         // GET: Weapons
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var weapons = db.Weapons.Include(w => w.Archetype).Include(w => w.Element).Include(w => w.InStockStatus).Include(w => w.Manufacturer).Include(w => w.Rarity);
@@ -40,6 +42,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         }
 
         // GET: Weapons/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.ArchetypeID = new SelectList(db.Archetypes, "ArchetypeID", "Archetype1");
@@ -55,6 +58,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "WeaponID,WeaponName,Description,ArchetypeID,ElementID,RarityID,ManufacturerID,Image,InStockID")] Weapon weapon, HttpPostedFileBase weaponImage)
         {
             if (ModelState.IsValid)
@@ -105,6 +109,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         }
 
         // GET: Weapons/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -129,6 +134,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "WeaponID,WeaponName,Description,ArchetypeID,ElementID,RarityID,ManufacturerID,Image,InStockID")] Weapon weapon, HttpPostedFileBase weaponImageEdit)
         {
             if (ModelState.IsValid)
@@ -184,6 +190,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         }
 
         // GET: Weapons/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -201,6 +208,7 @@ namespace StoreFrontLab.UI.MVC.Controllers
         // POST: Weapons/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Weapon weapon = db.Weapons.Find(id);

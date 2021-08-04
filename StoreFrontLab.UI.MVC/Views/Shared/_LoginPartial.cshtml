@@ -7,7 +7,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Index", "Manage")">Hello @User.Identity.GetUserName();!</a>
+            <a class="nav-link" href="@Url.Action("Index", "Manage")">@User.Identity.GetUserName()</a>
         </li>
         <li class="nav-item"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
 

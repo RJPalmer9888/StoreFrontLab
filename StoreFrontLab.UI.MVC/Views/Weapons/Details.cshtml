@@ -74,7 +74,17 @@
         <input type="submit" value="Add to Cart" class="btn btn-primary" name="qty" />
     }
 </p>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.WeaponID }) |
-    @Html.ActionLink("Back to List", "Products", "Home")
-</p>
+
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.WeaponID }) | @Html.ActionLink("Back to Products", "Products", "Home")
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Back to Products", "Products", "Home")
+    </p>
+}
+
