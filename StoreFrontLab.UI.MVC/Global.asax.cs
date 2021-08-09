@@ -1,4 +1,5 @@
 ﻿using StoreFrontLab.UI.MVC.Models;
+using System;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -16,6 +17,18 @@ namespace StoreFrontLab.UI.MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        protected void Application_Error()//This is the pre-built lifecycle event for when an error occurs in the application
+        {
+            #region Common Step - Logging
+ 
+             Exception ex = Server.GetLastError();
+
+             Session["LastError"] = ex;
+
+            Response.Redirect("~/error.html");
+            #endregion
         }
     }
 }
