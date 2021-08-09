@@ -360,6 +360,7 @@
     <Content Include="css\fontawesome.css" />
     <Content Include="css\owl.css" />
     <Content Include="css\templatemo-sixteen.css" />
+    <Content Include="error.html" />
     <Content Include="favicon-16x16.png" />
     <Content Include="favicon-32x32.png" />
     <Content Include="fonts\flexslider-icon.svg" />
@@ -674,6 +675,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="imgstore\weapons\" />
+    <Folder Include="Views\Errors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
