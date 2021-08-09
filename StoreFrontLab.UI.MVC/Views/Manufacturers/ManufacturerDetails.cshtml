@@ -1,0 +1,23 @@
+﻿@model StoreFrontLab.DATA.EF.Manufacturer
+
+@* This is a partial view - doesn't use the layout and is used "as part of" another view. Here it's loaded into a popup/dialog box for Publisher as an AJAX operation.*@
+
+<div>
+    @*<h4>Publisher</h4>
+        <hr />*@
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Manufacturer1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manufacturer1)
+        </dd>
+
+
+    </dl>
+</div>
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.PublisherID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

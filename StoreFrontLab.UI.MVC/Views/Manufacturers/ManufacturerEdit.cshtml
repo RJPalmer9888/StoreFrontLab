@@ -1,0 +1,23 @@
+﻿@model StoreFrontLab.DATA.EF.Manufacturer
+
+@using (Html.BeginForm("AjaxEdit", "Manufacturers", FormMethod.Post, new { id = "ManufacturerEditForm" }))
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            @Html.HiddenFor(model => model.ManufacturerID)
+            <td>
+                @Html.EditorFor(model => model.Manufacturer1, new { htmlAttributes = new { @class = "form-control", style = "width: 400px;" } })
+                @Html.ValidationMessageFor(model => model.Manufacturer1, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                <input type="button" id="saveUpdate" value="Update Publisher" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

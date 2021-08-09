@@ -34,5 +34,6 @@ namespace StoreFrontLab.DATA.EF
         public virtual DbSet<Rarity> Rarities { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Weapon> Weapons { get; set; }
+        public virtual DbSet<UserDetail> UserDetails { get; set; }
     }
 }

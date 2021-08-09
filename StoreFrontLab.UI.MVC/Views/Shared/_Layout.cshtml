@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="~/css/templatemo-sixteen.css">
     <link rel="stylesheet" href="~/css/owl.css">
 
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css">
+
+
     @{
         int countItems = 0;
         if ((Dictionary<int, StoreFrontLab.UI.MVC.Models.CartItemViewModel>)Session["cart"] != null && ((Dictionary<int, StoreFrontLab.UI.MVC.Models.CartItemViewModel>)Session["cart"]).Count > 0)
@@ -74,6 +77,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Products", "Home")">Our Products</a>
                         </li>
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Manufacturers")">Manufacturers (AJAX Create/Delete)</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("About", "Home")">About Us</a>
                         </li>
@@ -85,9 +94,9 @@
                             @* Only show the cart icon if session cart exists and has more than 0 items in it. *@
                             @if (Session["cart"] != null && ViewBag.CountItems > 0)
                             {
-                            <a class="nav-link" href="@Url.Action("Index", "ShoppingCart")">@*<i class="fa fa-shopping-cart"/>*@Cart (@ViewBag.CountItems)</a>
-                                
-                                
+                                <a class="nav-link" href="@Url.Action("Index", "ShoppingCart")">@*<i class="fa fa-shopping-cart"/>*@Cart (@ViewBag.CountItems)</a>
+
+
 
                             }
                             else
@@ -124,6 +133,11 @@
         </div>
     </footer>
     @Scripts.Render("~/bundles/jquery")
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/jquery.ajax.unobtrusive/3.2.4/jquery.unobtrusive-ajax.min.js"></script>
+
     @RenderSection("scripts", false)
 
     <!-- Bootstrap core JavaScript -->

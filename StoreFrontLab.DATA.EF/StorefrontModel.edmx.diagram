@@ -20,6 +20,7 @@
         <AssociationConnector Association="StoreFrontModel.FK_Weapons_InStockStatus" ManuallyRouted="false" />
         <AssociationConnector Association="StoreFrontModel.FK_Weapons_Manufacturers" ManuallyRouted="false" />
         <AssociationConnector Association="StoreFrontModel.FK_Weapons_Rarities" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="StoreFrontModel.UserDetail" Width="1.5" PointX="6.125" PointY="3.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

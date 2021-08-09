@@ -1,0 +1,224 @@
+﻿@model IEnumerable<StoreFrontLab.DATA.EF.Manufacturer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br /><br /><br /><br />
+@* Below is a placeholder element/output element for the AJAX response to populate in.*@
+<div class="container">
+    <div id="main" class="section">
+        <div class="container">
+            <div id="MessageDisplay" class="row">
+                <div class="col-md-10 col-md-offset-1" id="MessageContent"></div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+    <p class="row">
+        @*Button to toggle create form*@
+        <button id="toggleManufacturerCreate" class="btn btn-primary pull-left">Add New</button>
+        <br />
+    </p>
+
+    <div id="ManufacturerCreate">
+        @Html.Partial("AjaxCreate", new StoreFrontLab.DATA.EF.Manufacturer())
+    </div>
+
+    <table class="table" id="ManufacturersTable">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer1)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr id="Manufacturer-@item.ManufacturerID">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer1)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ManufacturerID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ManufacturerID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ManufacturerID })*@
+                    @*<a href="" class="DetailsLink" id="@item.ManufacturerID">Details</a>
+
+                    <a href="" class="EditLink" id="@item.ManufacturerID">Edit</a>*@
+
+                    @* https://localhost:3000/Manufacturers/AjaxDelete/1*@
+                    @Ajax.ActionLink("Delete", "AjaxDelete", "Manufacturers", new { id = item.ManufacturerID}, new AjaxOptions{
+                   HttpMethod = "POST",
+                   Confirm = $"Are you sure you want to delete {item.Manufacturer1} from manufacturers?",
+                   OnSuccess = "deleteConfirmed",
+                   OnFailure = "deleteFailed"
+               })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    
+</div>
+
+<div id="ManufacturerDetails"></div>
+@section scripts {
+    <script>
+        //******************* AJAX DELETE ********************//
+        function deleteConfirmed(response, status, data) {
+            //remove the row from the table in the UI
+            //1. designate the row in the table to be deleted
+            var rowId = "#Manufacturer-" + response.id;
+            $("#ManufacturersTable").find(rowId).remove();
+
+            //Display a status message (use AJAX response's message property)
+            $('#MessageContent').html('<div class="alert alert-success">' + response.message + '</div>');
+        }
+
+        //failed attempt to delete
+        function deleteFailed(response, status, data) {
+            //display a message in MessageContent
+            $('#MessageContent').html("<div class='alert alert-danger'>Delete unsuccessful. Is this manufacturer referenced by a weapon? If so, change the weapon's manufacturer or delete the weapon.</div>");
+        }
+
+        //******************* DETAILS *******************//
+        //Open PublisherDetails partial view in a popup for the correct publisher.
+        $('a.DetailsLink').click(function (e) {
+            e.preventDefault();//This prevents default behavior of reloading the page.
+
+            //Target popup placeholder div, pass it data (this-clicked-link's id)
+            //Then apply jQuery UI dialog plugin to make it a popup w/ various settings
+            //Open PublisherDetails partial view in popup for the correct publisher
+            $("#ManufacturerDetails").data('pId', $(this).attr('id')).dialog({
+                width: 400,
+                height: 200,
+                open: function () {
+                    var manID = $(this).data('pId');
+                    //The below line of code will load the partial view into our dialog box
+                    $(this).load(`/Manufacturers/ManufacturerDetails/${manID}`);
+                },
+                title: "Manufacturer Details",
+                modal: true,
+                resizable: false
+            });//end dialog box content
+        });//end of click event on DetailsLink
+
+        //********** Create *******************//
+        //Toggle the create form
+        $('#ManufacturerCreate').hide();//starts form hidden
+        $('#toggleManufacturerCreate').click(function () {
+            $('#ManufacturerCreate').toggle();//toggle to show/hide form
+        });
+
+        //Summary: when the form is submitted, we have to format the data. In order to formate the data, we have to serialize the data (package it up to send it across the internet). The notification (MessageContent) will show status updates
+        //jQuery AJAX will:
+        //call the POST AjaxCreate action from Publishers controller
+        //pass json data from form to the controller
+        //on failure, notify the user of an error
+        //on success, notify the user of success, reset the form, "add" the new row to the publishers table on this page
+        $('#ManufacturerCreateForm').submit(function (e) {
+            //Serialize the form inputs for transport via JSON
+            var formData = $(this).serializeArray();
+            console.log(formData);
+            e.preventDefault();//This will prevent the page from reloading
+
+            $.ajax({
+                url: "/Manufacturers/AjaxCreate",
+                type: "POST",
+                data: formData,
+                dataType: "json",
+                error: function (e) {
+                    $('#MessageContent').html("<div class='alert alert-danger'>There was a problem!</div>");
+                },
+                success: function (foo) {
+                    //Assemble a new row to be added to the UI
+                    var row = '<tr><td>' + foo.ManufacturerName + '</td>' +
+                        '<td>Refresh to view options</td></tr>';
+                    $('#ManufacturersTable').append(row);
+
+                    //We provide a confirmation that is was successful
+                    $('#MessageContent').html('<div class="alert alert-success">Record Added!</div>');
+
+                    //Reset the form
+                    $("#ManufacturerCreateForm")[0].reset();
+                }
+            })
+        });
+
+        //***************** EDIT ****************//
+        //Create a variable for the existing Publisher...will be empty to begin
+        var originalContent = null;
+
+        //Handle the click of the Edit button
+        $('a.EditLink').click(function (e) {
+            e.preventDefault();
+            //alert('Editing!'); -for testing purposes
+            //Capture the pub id from ui
+            var manufacturerID = $(this).attr("id");
+
+            //Capture the row in the table that corresponds to the id
+            //.children() captures all of the nested elements inside the specific row
+            var row = $('#Manufacturer-' + manufacturerID).children();
+            console.log(row);
+
+            originalContent = {
+                //key : value
+                ManId: manufacturerID,
+                ManName: row[0].innerText,//.innerText allows us to capture the value
+            };
+
+            console.log("Original Content", orignalContent);
+            //Getting the EditForm
+            $.get("/Manufacturers/ManufacturerEdit/" + manufacturerID, function (data) {
+                $('#Manufacturer-' + manufacturerID).replaceWith(
+                    '<tr id="Manufacturer-' + manufacturerID + '"><td colspan="5">' + data + '</td></tr>'
+                );
+            });
+
+
+            //Submitting the Edit Form
+            $(document).on("click", "#saveUpdate", function () {
+                var formData = $("#ManufacturerEditForm").serializeArray();
+
+                $('#MessageContent').html("<div class='alert alert-warning'>Please wait...</div>");
+
+                $.ajax({
+                    url: "/Manufacturers/AjaxEdit",
+                    type: "POST",
+                    data: formData,
+                    dataType: "json",
+                    success: function (data) {
+                        //changed msg
+                        $('#MessageContent').html("<div class='alert alert-success'>Your Record was Successfully Updated!</div>");
+                        $('#ManufacturerEditForm')[0].reset();
+
+                        $(function () {
+                            var row = '<tr>' +
+                                '<td>' + data.ManufacturerName + '</td>' +
+                                '<td>Refresh to view options</td></tr>';
+
+                            $('#Manufacturer-' + data.ManufacturerID).replaceWith(row);//rewrote entire line for replace not append
+                        });
+                    },
+                    error: function (e) {
+                        $('#MessageContent').html("<div class='alert alert-warning'>There was an error. Please try again or contact the site administrator.</div>");
+                        $(function () {
+                            var row = '<tr id="Manufacturer-' + originalContent.ManId + '"> <td>' + originalContent.ManName +
+                                '</td><td>Refresh to view options</td></tr>';
+
+                            $('#Manufacturer-' + data.ManufacturerID).replaceWith(row);//rewrote entire line for replace not append
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -91,6 +91,9 @@
     <Compile Include="sysdiagram.cs">
       <DependentUpon>StorefrontModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserDetail.cs">
+      <DependentUpon>StorefrontModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Weapon.cs">
       <DependentUpon>StorefrontModel.tt</DependentUpon>
     </Compile>
